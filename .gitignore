@@ -34,4 +34,5 @@
 # custom
 /build
 /.vs
+/.cache
 *.code-workspace
