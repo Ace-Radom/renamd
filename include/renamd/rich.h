@@ -54,8 +54,8 @@ namespace rena {
 
         typedef enum class FStyle : int {
             BOLD          = 1,
-            DIM        = 2,
-            ITALIC           = 3,
+            DIM           = 2,
+            ITALIC        = 3,
             UNDERLINE     = 4,
         } FStyle;
 
