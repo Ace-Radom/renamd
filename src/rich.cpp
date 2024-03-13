@@ -2,6 +2,8 @@
 
 namespace rich = rena::rich;
 
+#ifdef RICH_FORCE_WINAPI
+
 WORD _fgc;
 WORD _bgc;
 WORD _cflag;
@@ -70,6 +72,8 @@ WORD rich::putils::GetColorFlag(){
     return _cflag;
 }
 
+#endif
+
 void rich::init(){
 #ifdef RICH_FORCE_WINAPI
     CONSOLE_SCREEN_BUFFER_INFO csbufinfo;
@@ -78,4 +82,3 @@ void rich::init(){
 #endif
     return;
 }
-

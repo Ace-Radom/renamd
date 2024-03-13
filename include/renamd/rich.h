@@ -52,6 +52,13 @@ namespace rena {
             BRIGHTWHITE   = 107,
         } BColor;
 
+        typedef enum class FStyle : int {
+            BOLD          = 1,
+            DIM        = 2,
+            ITALIC           = 3,
+            UNDERLINE     = 4,
+        } FStyle;
+
 #ifdef RICH_FORCE_WINAPI
 
         namespace putils {
@@ -74,7 +81,7 @@ namespace rena {
             putils::SetForegroundColor( __fc );
             SetConsoleTextAttribute( putils::GetStdoutHandle() , putils::GetColorFlag() );
 #else
-            __os << "\033[" << std::bitset<8>( static_cast<unsigned int>( __fc ) ).to_ulong() << "m";
+            __os << "\033[" << static_cast<unsigned int>( __fc ) << "m";
 #endif
             return __os;
         }
@@ -85,7 +92,18 @@ namespace rena {
             putils::SetBackgroundColor( __bc );
             SetConsoleTextAttribute( putils::GetStdoutHandle() , putils::GetColorFlag() );
 #else
-            __os << "\033[" << std::bitset<8>( static_cast<unsigned int>( __bc ) ).to_ulong() << "m";
+            __os << "\033[" << static_cast<unsigned int>( __bc ) << "m";
+#endif
+            return __os;
+        }
+
+        /**
+         * @warning FStyle DOES NOT work when RICH_FORCE_WINAPI is set
+        */
+        template <class _Elem , class _Traits>
+        std::basic_ostream<_Elem,_Traits>& operator<<( std::basic_ostream<_Elem,_Traits>& __os , FStyle __fs ){
+#ifndef RICH_FORCE_WINAPI
+            __os << "\033[" << static_cast<unsigned int>( __fs ) << "m";
 #endif
             return __os;
         }
