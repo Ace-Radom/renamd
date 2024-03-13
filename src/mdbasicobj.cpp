@@ -1,9 +1,25 @@
 #include"renamd/mdbasicobj.h"
 
-uint16_t rena::styles::basic_node::style(){
+namespace styles = rena::styles;
+
+uint16_t styles::basic_node::style(){
     return this -> s;
 }
 
-uint16_t rena::styles::basic_line::style(){
+styles::basic_line::~basic_line(){
+    for ( auto& it : this -> nodes )
+    {
+        delete it;
+    }
+    this -> nodes.clear();
+    return;
+}
+
+uint16_t styles::basic_line::style(){
     return this -> s;
+}
+
+void styles::basic_line::add( styles::basic_node* __node ){
+    this -> nodes.push_back( __node );
+    return;
 }

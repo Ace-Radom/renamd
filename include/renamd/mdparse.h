@@ -6,6 +6,9 @@
 #include<cstdint>
 #include<iostream>
 #include<string>
+#include<vector>
+
+#include"mdbasicobj.h"
 
 namespace rena {
 
@@ -17,12 +20,15 @@ namespace rena {
                 : raw( __raw ){}
             ~mdparser(){};
 
+            void test();
+
         protected:
             
 
             
 
         private:
+            std::vector<styles::basic_line> lines;
             std::string raw;
 
     }; // class mdparser
