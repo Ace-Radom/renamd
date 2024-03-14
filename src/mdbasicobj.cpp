@@ -1,4 +1,5 @@
 #include"renamd/mdbasicobj.h"
+#include"utf8cwidth.h"
 
 namespace styles = rena::styles;
 
@@ -10,7 +11,11 @@ styles::basic_node::~basic_node(){
     return;
 }
 
-styles::style_flag styles::basic_node::style(){
+size_t styles::basic_node::output_width() const {
+    return unicode::display_width( ews ? this -> d + " " : this -> d );
+}
+
+styles::style_flag styles::basic_node::style() const noexcept {
     if ( this -> n != nullptr )
     {
         return this -> s & this -> n -> style();
@@ -42,7 +47,16 @@ styles::basic_line::~basic_line(){
     return;
 }
 
-styles::style_flag styles::basic_line::style(){
+size_t styles::basic_line::output_width() const {
+    size_t width;
+    for ( const auto& it : this -> nodes )
+    {
+        width += it -> output_width();
+    }
+    return width;
+}
+
+styles::style_flag styles::basic_line::style() const noexcept {
     return this -> s;
 }
 

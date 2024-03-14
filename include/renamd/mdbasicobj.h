@@ -28,37 +28,55 @@ namespace rena::styles {
     static const style_flag s_l_codeblock = 0b0000000000000100;
     static const style_flag s_a_normal    = 0b0000000000000000;
 
-    class basic_node {
+    class basic_mdobj {
 
         public:
+            basic_mdobj(){};
+            virtual ~basic_mdobj(){};
+
+            virtual size_t output_width() const = 0;
+            virtual void render( std::ostream& __os ) const = 0;
+
+    }; // class basic_mdobj
+
+    class basic_node : public basic_mdobj {
+
+        public:
+            basic_node( const style_flag __s , const std::string& __d , const bool __ews )
+                : s( __s ) , d ( __d ) , ews( __ews ){};
             basic_node( const style_flag __s , const std::string& __d )
-                : s( __s ) , d( __d ){};
+                : s( __s ) , d( __d ) , ews( true ){};
+            basic_node( const style_flag __s , const bool __ews )
+                : s( __s ) , ews( __ews ){};
             basic_node( const style_flag __s )
-                : s( __s ){};
+                : s( __s ) , ews( true ){};
             virtual ~basic_node();
 
-            style_flag style();
-            virtual void render( std::ostream& __os ) const = 0;
+            virtual size_t output_width() const override;
+
+            style_flag style() const noexcept;
             void bind( basic_node* __next_level );
 
         protected:
             std::string d;  // data
             basic_node* n;  // next level
+            bool ews;  // end with space
 
         private:
             style_flag s;  // style
 
     }; // class basic_node
 
-    class basic_line {
+    class basic_line : public basic_mdobj {
 
         public:
             basic_line( const style_flag __s )
                 : s( __s ){};
             virtual ~basic_line();
 
-            style_flag style();
-            virtual void render( std::ostream& __os ) const = 0;
+            virtual size_t output_width() const override;
+
+            style_flag style() const noexcept;
             virtual void add( basic_node* __node );
 
         protected:

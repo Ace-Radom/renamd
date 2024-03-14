@@ -5,6 +5,7 @@
 
 #include<cstdint>
 #include<iostream>
+#include<sstream>
 #include<string>
 #include<vector>
 
@@ -16,20 +17,21 @@ namespace rena {
 
         public:
             mdparser(){};
-            mdparser( std::string __raw )
-                : raw( __raw ){}
             ~mdparser(){};
-
+            
+            bool read( std::string __raw );
+            const std::string& err() const noexcept;
             void test();
 
         protected:
-            
-
-            
+            bool _parse();
+            void _update_errmsg() noexcept;
 
         private:
             std::vector<styles::basic_line> lines;
             std::string raw;
+            std::string errmsg;
+            int errnum;
 
     }; // class mdparser
 
