@@ -21,6 +21,8 @@ namespace rena::styles::node {
     class bold : public basic_node {
 
         public:
+            bold()
+                : basic_node( s_f_bold ){};        
             bold( const std::string& __d )
                 : basic_node( s_f_bold , __d ){};
             ~bold(){};
@@ -28,6 +30,32 @@ namespace rena::styles::node {
             void render( std::ostream& __os ) const override;
 
     }; // class bold
+
+    class italic : public basic_node {
+
+        public:
+            italic()
+                : basic_node( s_f_italic ){};
+            italic( const std::string& __d )
+                : basic_node( s_f_italic , __d ){};
+            ~italic(){};
+
+            void render( std::ostream& __os ) const override;
+
+    }; // class italic
+
+    class code : public basic_node {
+
+        public:
+            code()
+                : basic_node( s_f_code ){};
+            code( const std::string& __d )
+                : basic_node( s_f_code , __d ){};
+            ~code(){};
+
+            void render( std::ostream& __os ) const override;
+
+    }; // class code
 
 }; // namespace rena::styles::node
 

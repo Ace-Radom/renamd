@@ -14,19 +14,18 @@ namespace rena::styles {
 
     static const style_flag s_f_bold      = 0b1000000000000000;
     static const style_flag s_f_italic    = 0b0100000000000000;
-    static const style_flag s_f_underline = 0b0010000000000000;
-    static const style_flag s_f_code      = 0b0001000000000000;
-    static const style_flag s_l_title1    = 0b0000100000000000;
-    static const style_flag s_l_title2    = 0b0000010000000000;
-    static const style_flag s_l_title3    = 0b0000001000000000;
-    static const style_flag s_l_title4    = 0b0000000100000000;
-    static const style_flag s_l_title5    = 0b0000000010000000;
-    static const style_flag s_l_title6    = 0b0000000001000000;
-    static const style_flag s_l_quote     = 0b0000000000100000;
-    static const style_flag s_l_ul        = 0b0000000000010000;
-    static const style_flag s_l_ol        = 0b0000000000001000;
-    static const style_flag s_l_table     = 0b0000000000000100;
-    static const style_flag s_l_codeblock = 0b0000000000000010;
+    static const style_flag s_f_code      = 0b0010000000000000;
+    static const style_flag s_l_title1    = 0b0001000000000000;
+    static const style_flag s_l_title2    = 0b0000100000000000;
+    static const style_flag s_l_title3    = 0b0000010000000000;
+    static const style_flag s_l_title4    = 0b0000001000000000;
+    static const style_flag s_l_title5    = 0b0000000100000000;
+    static const style_flag s_l_title6    = 0b0000000010000000;
+    static const style_flag s_l_quote     = 0b0000000001000000;
+    static const style_flag s_l_ul        = 0b0000000000100000;
+    static const style_flag s_l_ol        = 0b0000000000010000;
+    static const style_flag s_l_table     = 0b0000000000001000;
+    static const style_flag s_l_codeblock = 0b0000000000000100;
     static const style_flag s_a_normal    = 0b0000000000000000;
 
     class basic_node {
@@ -34,16 +33,20 @@ namespace rena::styles {
         public:
             basic_node( const style_flag __s , const std::string& __d )
                 : s( __s ) , d( __d ){};
-            virtual ~basic_node(){};
+            basic_node( const style_flag __s )
+                : s( __s ){};
+            virtual ~basic_node();
 
             style_flag style();
             virtual void render( std::ostream& __os ) const = 0;
+            void bind( basic_node* __next_level );
 
         protected:
-            std::string d; // data
+            std::string d;  // data
+            basic_node* n;  // next level
 
         private:
-            style_flag s;    // style
+            style_flag s;  // style
 
     }; // class basic_node
 
@@ -62,7 +65,7 @@ namespace rena::styles {
             std::vector<basic_node*> nodes;
 
         private:
-            style_flag s;    // style
+            style_flag s;  // style
 
     }; // class basic_line
 

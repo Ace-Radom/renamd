@@ -4,8 +4,10 @@
 
 void rena::mdparser::test(){
     styles::line::normal normal1;
-    normal1.add( new styles::node::normal( "Hello" ) );
-    normal1.add( new styles::node::normal( "World" ) );
+    auto node = new styles::node::bold();
+    node -> bind( new styles::node::italic( "Hello" ) );
+    normal1.add( node );
+    normal1.add( new styles::node::code( "This is the way" ) );
     normal1.render( std::cout );
     return;   
 }
