@@ -25,6 +25,9 @@ namespace rena::styles::line {
                 : basic_line( __s ){};
             virtual ~basic_title(){};
 
+        protected:
+            static putils::coord _get_console_size() noexcept;
+
     }; // class basic_title
 
     class title1 final : public basic_title {
@@ -34,11 +37,66 @@ namespace rena::styles::line {
                 : basic_title( s_l_title1 ){};
             ~title1(){};
 
-            void render( std::ostream& __os ) const override {};
+            void render( std::ostream& __os ) const override;
 
     }; // class title1
 
-    basic_title* choose_title( int __level );
+    class title2 final : public basic_title {
+
+        public:
+            title2()
+                : basic_title( s_l_title2 ){};
+            ~title2(){};
+
+            void render( std::ostream& __os ) const override;
+
+    }; // class title2
+
+    class title3 final : public basic_title {
+
+        public:
+            title3()
+                : basic_title( s_l_title3 ){};
+            ~title3(){};
+
+            void render( std::ostream& __os ) const override;
+
+    }; // class title3
+
+    class title4 final : public basic_title {
+
+        public:
+            title4()
+                : basic_title( s_l_title4 ){};
+            ~title4(){};
+
+            void render( std::ostream& __os ) const override {};
+
+    }; // class title4
+
+    class title5 final : public basic_title {
+
+        public:
+            title5()
+                : basic_title( s_l_title5 ){};
+            ~title5(){};
+
+            void render( std::ostream& __os ) const override {};
+
+    }; // class title5
+
+    class title6 final : public basic_title {
+
+        public:
+            title6()
+                : basic_title( s_l_title6 ){};
+            ~title6(){};
+
+            void render( std::ostream& __os ) const override {};
+
+    }; // class title6
+
+    basic_title* create_title( int __level );
 
 }; // namespace rena
 

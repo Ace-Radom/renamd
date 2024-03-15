@@ -20,9 +20,10 @@ void rena::mdparser::test(){
     // normal1.add( new styles::node::code( "This is the way" ) );
     // normal1.render( std::cout );
 
-    styles::line::title1 title;
-
-    std::cout << title._calc_output_width();
+    styles::line::title2 title;
+    title.add( new styles::node::normal( "Hello" ) );
+    title.add( new styles::node::code( "code" ) );
+    title.render( std::cout );
 
     // this -> raw = "# Title 1\n## Title 2\n ### Title 3\n#### Title4 \n##### R\n###### Title 6\n####### TITLE 7\n#TITLE8";
     // this -> _parse();

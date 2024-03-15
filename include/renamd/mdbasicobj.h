@@ -87,6 +87,55 @@ namespace rena::styles {
 
     }; // class basic_line
 
+    namespace putils {
+
+        typedef struct coord {
+            int x;
+            int y;
+        } coord;
+
+        coord gotoxy( int x , int y );
+
+#ifdef _WIN32
+        void SetCursorPosition( coord __coord );
+#endif
+
+        template <class _Elem , class _Traits>
+        std::basic_ostream<_Elem,_Traits>& operator<<( std::basic_ostream<_Elem,_Traits>& __os , coord __coord ){
+#ifdef _WIN32
+            SetCursorPosition( __coord );
+#else
+            if ( __coord.y == -1 )
+            {
+                __os << "\033[" <<  __coord.x << "G";
+            }
+            // currently no support to vertical absolute
+            else
+            {
+                __os << "\033[" << __coord.y << ";" << __coord.x << "H";
+            }
+#endif
+            return __os;
+        }
+
+        typedef struct repeat_str {
+            std::string str;
+            int repeat_times;
+        } repeat_str;
+
+        repeat_str repeat_string( const std::string& __str , int times );
+
+        template <class _Elem , class _Traits>
+        std::basic_ostream<_Elem,_Traits>& operator<<( std::basic_ostream<_Elem,_Traits>& __os , const repeat_str& __rs ){
+            for ( int i = 0 ; i < __rs.repeat_times ; i++ )
+            {
+                __os << __rs.str;
+            }
+            return __os;
+        }
+
+    }; // namespace putils
+
 }; // namespace rena::styles
 
 #endif // _RENAMD_MDBASICOBJ_H_

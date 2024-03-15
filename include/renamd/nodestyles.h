@@ -25,10 +25,10 @@ namespace rena::styles::node {
         public:
             bold()
                 : basic_node( s_f_bold ){};
-            bold( const bool __ews )
-                : basic_node( s_f_bold , __ews ){};
             bold( const std::string& __d )
                 : basic_node( s_f_bold , __d ){};
+            bold( const std::string& __d , const bool __ews )
+                : basic_node( s_f_bold , __d , __ews ){};
             ~bold(){};
 
             void render( std::ostream& __os ) const override;
@@ -40,10 +40,10 @@ namespace rena::styles::node {
         public:
             italic()
                 : basic_node( s_f_italic ){};
-            italic( const bool __ews )
-                : basic_node( s_f_italic , __ews ){};
             italic( const std::string& __d )
                 : basic_node( s_f_italic , __d ){};
+            italic( const std::string& __d , const bool __ews )
+                : basic_node( s_f_italic , __d , __ews ){};
             ~italic(){};
 
             void render( std::ostream& __os ) const override;
@@ -55,10 +55,10 @@ namespace rena::styles::node {
         public:
             code()
                 : basic_node( s_f_code ){};
-            code( const bool __ews )
-                : basic_node( s_f_code , __ews ){};
             code( const std::string& __d )
                 : basic_node( s_f_code , __d ){};
+            code( const std::string& __d , const bool __ews )
+                : basic_node( s_f_code , __d , __ews ){};
             ~code(){};
 
             void render( std::ostream& __os ) const override;
